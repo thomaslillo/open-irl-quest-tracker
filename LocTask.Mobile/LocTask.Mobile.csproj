@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!--
+      Primary target: net10.0 (class library mode) for CI/testing without MAUI workload.
+      When the MAUI workload is installed, replace TargetFramework with:
+        <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst;net10.0-windows10.0.19041.0</TargetFrameworks>
+      and add: <UseMaui>true</UseMaui>
+    -->
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>LocTask.Mobile</RootNamespace>
+    <AssemblyName>LocTask.Mobile</AssemblyName>
+  </PropertyGroup>
+
+  <!--
+    MAUI-specific files are excluded here because the MAUI workload is required to compile them.
+    When the MAUI workload is installed and targets are updated above, remove these exclusions.
+  -->
+  <ItemGroup>
+    <Compile Remove="MauiProgram.cs" />
+    <Compile Remove="Views/**/*.cs" />
+    <Compile Remove="Platforms/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- SQLite for local offline-first storage -->
+    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.11" />
+
+    <!-- MVVM toolkit for ViewModels, commands, and observable properties -->
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+
+    <!-- DI abstractions (IServiceCollection) -->
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.3" />
+
+    <!--
+      The following packages require the .NET MAUI workload and are included here for reference.
+      Uncomment when MAUI workload is installed:
+
+      <PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
+      <PackageReference Include="Shiny.Geofencing" Version="3.3.4" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.3" />
+    -->
+  </ItemGroup>
+
+</Project>
